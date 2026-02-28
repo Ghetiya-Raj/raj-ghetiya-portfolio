@@ -1,0 +1,548 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --background: #08080e;
+  --foreground: #e8f4ff;
+  --card: #0d0d1a;
+  --card-foreground: #e8f4ff;
+  --popover: #0d0d1a;
+  --popover-foreground: #e8f4ff;
+  --primary: #00ffc8;
+  --primary-rgb: 0, 255, 200;
+  --primary-foreground: #001a13;
+  --secondary: #0f0f1e;
+  --secondary-foreground: #9fb8d6;
+  --muted: #0a0a18;
+  --muted-foreground: #6b8ba4;
+  --accent: #ff4da6;
+  --accent-rgb: 255, 77, 166;
+  --accent-foreground: #200010;
+  --violet: #a855f7;
+  --violet-rgb: 168, 85, 247;
+  --destructive: #ff5c5c;
+  --border: #151530;
+  --input: #151530;
+  --ring: #00ffc8;
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--violet) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(90deg, var(--primary), #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   GLASSMORPHISM
+   ============================================================ */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(13, 13, 26, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* glass-card:hover is managed via @media(hover:hover) block below */
+
+/* ============================================================
+   NEON GLOW UTILITIES
+   ============================================================ */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.2);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4), 0 0 40px rgba(var(--accent-rgb), 0.2);
+}
+
+.text-glow-primary {
+  text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.8), 0 0 40px rgba(var(--primary-rgb), 0.4);
+}
+
+/* ============================================================
+   SCROLL BAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-22px); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(18px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.3); }
+  50% { box-shadow: 0 0 32px rgba(var(--primary-rgb), 0.7), 0 0 60px rgba(var(--primary-rgb), 0.3); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes gradientRotate {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(18px, -22px) scale(1.04); }
+  66%       { transform: translate(-14px, 16px) scale(0.97); }
+}
+
+@keyframes blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 40% 30% 60% 50%; }
+  75% { border-radius: 60% 40% 60% 30% / 60% 50% 40% 30%; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+}
+
+/* Particle loader keyframes */
+@keyframes particleOrbit {
+  from { transform: rotate(var(--start-angle)) translateX(var(--orbit-r)) rotate(calc(-1 * var(--start-angle))); }
+  to { transform: rotate(calc(var(--start-angle) + 360deg)) translateX(var(--orbit-r)) rotate(calc(-1 * (var(--start-angle) + 360deg))); }
+}
+
+@keyframes loaderFadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loaderFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.05); }
+}
+
+/* ============================================================
+   SECTION UTILITIES
+   ============================================================ */
+.section-heading {
+  @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold;
+}
+
+.section-divider {
+  @apply w-16 sm:w-24 h-1 rounded-full mx-auto my-4 sm:my-6;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+/* ============================================================
+   CARD HOVER — Minimal glassmorphism, no multi-color flash
+   ============================================================ */
+.hover-glow-border {
+  position: relative;
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hover-glow-border:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+      0 24px 64px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 8px 32px rgba(var(--primary-rgb), 0.07);
+  }
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(13, 13, 26, 0.88);
+  }
+}
+@media (hover: none) {
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(13, 13, 26, 0.7);
+  }
+}
+
+/* Subtle active/press state */
+.glass-card:active {
+  transform: scale(0.985);
+  transition: transform 0.12s ease;
+}
+
+/* ============================================================
+   STAR FIELD (Skills section background)
+   ============================================================ */
+.star-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(0, 255, 200, 0.6);
+  border-radius: 50%;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   PROSE / FORM INPUTS
+   ============================================================ */
+.form-input {
+  @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground
+         transition-all duration-300 outline-none;
+}
+.form-input:focus {
+  border-color: rgba(var(--primary-rgb), 0.5);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  background: rgba(var(--primary-rgb), 0.04);
+}
+.form-input.error {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px rgba(255, 92, 92, 0.1);
+}
+
+/* ============================================================
+   CERTIFICATION MOBILE FIX
+   ============================================================ */
+@media (max-width: 640px) {
+  .cert-card {
+    /* Prevent overflow and stacking issues */
+    width: 100%;
+    min-height: auto !important;
+    transform: none !important;
+  }
+  .cert-card:hover {
+    transform: none !important;
+  }
+  .cert-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 0.5rem !important;
+  }
+}
+
+/* ============================================================
+   SPOTLIGHT CURSOR (Ambient light feature)
+   ============================================================ */
+.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  transition: opacity 0.3s ease;
+}
+
+/* ============================================================
+   PREMIUM CURSOR — hide default cursor on pointer + wide-screen devices only
+   ============================================================ */
+@media (pointer: fine) and (min-width: 1024px) {
+  html, body, * {
+    cursor: none !important;
+  }
+}
+
+/* Restore default cursor on touch / mobile — belt-and-suspenders */
+@media (pointer: coarse), (max-width: 1023px) {
+  html, body, * {
+    cursor: auto !important;
+  }
+}
+
+.premium-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+
+.premium-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 255, 200, 0.35);
+  pointer-events: none;
+  z-index: 99998;
+  will-change: transform;
+  transition: width 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              height 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              border-color 0.3s ease;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+/* Logo */
+.nav-logo {
+  color: var(--primary);
+  transition: opacity 0.2s ease;
+}
+.nav-logo:hover {
+  opacity: 0.65;
+}
+
+/* Desktop nav link with centered underline animation */
+.nav-item-link {
+  position: relative;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  padding-bottom: 4px;
+}
+.nav-item-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 9999px;
+  transition: width 0.25s ease-out;
+}
+.nav-item-link:hover {
+  color: var(--primary);
+}
+.nav-item-link:hover::after {
+  width: 55%;
+}
+.nav-item-link.active {
+  color: var(--primary);
+}
+.nav-item-link.active::after {
+  width: 55%;
+}
+
+/* Social icon buttons */
+.nav-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.nav-social-icon:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+/* Legacy nav-link kept for any other usage */
+.nav-link {
+  @apply relative text-sm font-medium text-muted-foreground transition-colors duration-300;
+}
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 rounded-full transition-all duration-300;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  @apply w-full;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--violet));
+  z-index: 9999;
+  transform-origin: left;
+  transition: transform 0.05s linear;
+}
+
+/* ============================================================
+   TYPING CURSOR
+   ============================================================ */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================================
+   MAGNETIC BUTTON
+   ============================================================ */
+.magnetic-btn {
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+/* ============================================================
+   EXPERIENCE TIMELINE
+   ============================================================ */
+.timeline-line {
+  position: absolute;
+  left: 1.25rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
+  opacity: 0.4;
+}
+.timeline-dot {
+  position: absolute;
+  left: 1.25rem;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px var(--primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
